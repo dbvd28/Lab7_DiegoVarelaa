@@ -21,6 +21,9 @@ public class adminarchivos {
      private ArrayList<Archivos> listaarchivos = new ArrayList();
     private File archivo = null;
 
+    public adminarchivos() {
+    }
+
     public adminarchivos(String path) {
          archivo = new File(path);
     }
