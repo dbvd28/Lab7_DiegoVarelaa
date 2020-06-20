@@ -49,8 +49,7 @@ public class hilo_descargar implements Runnable {
                             a.getNombre(),
                             a.getExtension(),
                             a.getLink(), a.getTamaño()
-                                 
-                        }; 
+                        };
                         model.addRow(newrow2);
                         tabla.setModel(model);
                     }
