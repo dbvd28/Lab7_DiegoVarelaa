@@ -37,23 +37,29 @@ public class hilo_descargar implements Runnable {
     public void run() {
         while (vive) {
             if (avanzar) {
-                progBar_t.setMaximum(tam);
-                this.progBar_t.setValue(this.progBar_t.getValue() + 1);
-                DefaultTableModel model = (DefaultTableModel) tabla.getModel();
-                for (Archivos a : c.getArchivos()) {
-                    Object[] newrow2 = {
-                        a.getNombre(),
-                        a.getExtension(),
-                        a.getLink(), a.getTamaño()
-                    };
-                    model.addRow(newrow2);
-                    tabla.setModel(model);
-            }
-                try {
-                        Thread.sleep(1000);
 
-                    
-                }catch (Exception ex) {
+                if (progBar_t.getValue() < progBar_t.getMaximum()) {
+                    progBar_t.setMaximum(tam);
+                    this.progBar_t.setValue(this.progBar_t.getValue() + 1);
+
+                } else {
+                    DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+                    for (Archivos a : c.getArchivos()) {
+                        Object[] newrow2 = {
+                            a.getNombre(),
+                            a.getExtension(),
+                            a.getLink(), a.getTamaño()
+                                 
+                        }; 
+                        model.addRow(newrow2);
+                        tabla.setModel(model);
+                    }
+                    avanzar = false;
+                }
+                try {
+                    Thread.sleep(1000);
+
+                } catch (Exception ex) {
 
                 }
             }

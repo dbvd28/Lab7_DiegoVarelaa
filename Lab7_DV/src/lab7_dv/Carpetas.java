@@ -59,7 +59,7 @@ public class Carpetas implements Serializable {
 
     @Override
     public String toString() {
-        return  "nombre=" + nombre + ", link=" + link + '}';
+        return    nombre + ", link=" + link + archivos.toString()+carpetas.toString();
     }
 
 }
