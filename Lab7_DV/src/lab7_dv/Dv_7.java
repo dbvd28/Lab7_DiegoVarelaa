@@ -71,9 +71,19 @@ public class Dv_7 extends javax.swing.JFrame {
         menu_unidad = new javax.swing.JPopupMenu();
         Fav = new javax.swing.JMenuItem();
         elim = new javax.swing.JMenuItem();
+        Descargar = new javax.swing.JMenuItem();
+        menu_papelera = new javax.swing.JPopupMenu();
+        elim_def = new javax.swing.JMenuItem();
+        restaurar = new javax.swing.JMenuItem();
+        menu_fav = new javax.swing.JPopupMenu();
+        Elim_fav = new javax.swing.JMenuItem();
+        descarga = new javax.swing.JFrame();
         pb_hilo1 = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jl_carpetas = new javax.swing.JList<>();
+        pb_descarga = new javax.swing.JProgressBar();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jt_descarga = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         Mi_unidad = new javax.swing.JMenuItem();
@@ -322,7 +332,55 @@ public class Dv_7 extends javax.swing.JFrame {
         menu_unidad.add(Fav);
 
         elim.setText("Eliminar");
+        elim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elimActionPerformed(evt);
+            }
+        });
         menu_unidad.add(elim);
+
+        Descargar.setText("Descargar");
+        Descargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DescargarActionPerformed(evt);
+            }
+        });
+        menu_unidad.add(Descargar);
+
+        elim_def.setText("Destruir");
+        elim_def.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elim_defActionPerformed(evt);
+            }
+        });
+        menu_papelera.add(elim_def);
+
+        restaurar.setText("Restaurar");
+        restaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restaurarActionPerformed(evt);
+            }
+        });
+        menu_papelera.add(restaurar);
+
+        Elim_fav.setText("Eliminar");
+        Elim_fav.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Elim_favActionPerformed(evt);
+            }
+        });
+        menu_fav.add(Elim_fav);
+
+        javax.swing.GroupLayout descargaLayout = new javax.swing.GroupLayout(descarga.getContentPane());
+        descarga.getContentPane().setLayout(descargaLayout);
+        descargaLayout.setHorizontalGroup(
+            descargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 626, Short.MAX_VALUE)
+        );
+        descargaLayout.setVerticalGroup(
+            descargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 377, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -337,6 +395,24 @@ public class Dv_7 extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jl_carpetas);
+
+        jt_descarga.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Exrension", "Link", "Tamaño"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jt_descarga);
 
         jMenu1.setText("File");
 
@@ -357,6 +433,11 @@ public class Dv_7 extends javax.swing.JFrame {
         jMenu1.add(Favoritos);
 
         Papelera.setText("Papelera");
+        Papelera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PapeleraActionPerformed(evt);
+            }
+        });
         jMenu1.add(Papelera);
 
         Agregar.setText("Agregar");
@@ -376,20 +457,33 @@ public class Dv_7 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pb_hilo1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pb_hilo1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(198, 198, 198)
+                        .addComponent(pb_descarga, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(pb_hilo1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pb_hilo1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pb_descarga, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         pack();
@@ -397,7 +491,14 @@ public class Dv_7 extends javax.swing.JFrame {
 
     private void FavoritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FavoritosActionPerformed
         // TODO add your handling code here:
-         pb_hilo1.setString("Favoritos");
+        pb_hilo1.setString("Favoritos");
+        adminfav af = new adminfav("./favoritos.dbvd");
+        af.cargarArchivo();
+        DefaultListModel model = new DefaultListModel();
+        for (Object f : af.getFavoritos()) {
+            model.addElement(f);
+        }
+        jl_carpetas.setModel(model);
     }//GEN-LAST:event_FavoritosActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
@@ -411,6 +512,8 @@ public class Dv_7 extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         try {
+            adminunidad au = new adminunidad("./Unidad.dbvd");
+            au.cargarArchivo();
             adminarchivos av = new adminarchivos("./archivos.dbvd");
             String nombre = tf_nomarchivo.getText();
             int tamaño = (int) sp_tamaño.getValue();
@@ -427,7 +530,8 @@ public class Dv_7 extends javax.swing.JFrame {
             }
             System.out.println(link);
             Archivos x = new Archivos(nombre, link, extension, tamaño);
-            miunidad.add(x);
+            au.getUnidad().add(x);
+            au.escribirArchivo();
             av.getalistaarchivos().add(x);
             av.escribirArchivo();
             JOptionPane.showMessageDialog(null, "Agregado con exito");
@@ -450,12 +554,14 @@ public class Dv_7 extends javax.swing.JFrame {
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
         try {
-            if (carpetas.size() > 0) {
+              adminunidad au = new adminunidad("./Unidad.dbvd");
+                au.cargarArchivo();
                 admincarpetas ac = new admincarpetas("./carpetas.dbvd");
                 ac.cargarArchivo();
                 Carpetas c = (Carpetas) cb_carpetas.getSelectedItem();
                 adminarchivos av = new adminarchivos("./archivos.dbvd");
                 av.cargarArchivo();
+            if (ac.getListacarpetas().size() > 0) { 
                 String nombre = tf_nomarchivo.getText();
                 int tamaño = (int) sp_tamaño.getValue();
                 String extension = cb_extension.getSelectedItem().toString();
@@ -472,14 +578,16 @@ public class Dv_7 extends javax.swing.JFrame {
                 }
                 System.out.println(link);
                 Archivos x = new Archivos(nombre, link, extension, tamaño);
-                miunidad.add(x);
                 av.getalistaarchivos().add(x);
                 av.escribirArchivo();
-                JOptionPane.showMessageDialog(null, "Agregado con exito");
                 c.getArchivos().add(x);
                 ac.getListacarpetas().add(c);
                 ac.escribirArchivo();
+                au.getUnidad().add(c);
+                au.escribirArchivo();
                 ar_a_cp.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Agregado con exito");
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Lo sentimos pero no hay carpetas creadas ");
             }
@@ -508,6 +616,8 @@ public class Dv_7 extends javax.swing.JFrame {
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
         try {
+            adminunidad au = new adminunidad("./Unidad.dbvd");
+            au.cargarArchivo();
             admincarpetas ac = new admincarpetas("./carpetas.dbvd");
             ac.cargarArchivo();
             String nombre = tf_nomcarpeta.getText();
@@ -524,7 +634,8 @@ public class Dv_7 extends javax.swing.JFrame {
             Carpetas c = new Carpetas(nombre, link);
             ac.getListacarpetas().add(c);
             ac.escribirArchivo();
-            miunidad.add(c);
+            au.getUnidad().add(c);
+            au.escribirArchivo();
             JOptionPane.showMessageDialog(null, "Agregado con exito");
         } catch (Exception e) {
             e.printStackTrace();
@@ -535,14 +646,21 @@ public class Dv_7 extends javax.swing.JFrame {
         // TODO add your handling code here:
         admincarpetas ac = new admincarpetas("./carpetas.dbvd");
         ac.cargarArchivo();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (Carpetas c : ac.getListacarpetas()) {
+          model.addElement(c);
+        }
+        cb_carp1.setModel(model);
+        DefaultComboBoxModel model2 = new DefaultComboBoxModel(ac.getListacarpetas().toArray());
+         for (Carpetas c : ac.getListacarpetas()) {
+          model2.addElement(c);
+        }
+        cb_carp2.setModel(model2);
+
         cp_a_cp.pack();
         cp_a_cp.setLocationRelativeTo(null);
         cp_a_cp.setVisible(true);
-        DefaultComboBoxModel model = new DefaultComboBoxModel(ac.getListacarpetas().toArray());
-        cb_carp1.setModel(model);
-        DefaultComboBoxModel model2 = new DefaultComboBoxModel(ac.getListacarpetas().toArray());
-        cb_carp2.setModel(model2);
-
+        
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -554,16 +672,12 @@ public class Dv_7 extends javax.swing.JFrame {
         // TODO add your handling code here:
         pb_hilo1.setString("Mi unidad");
         DefaultListModel model = new DefaultListModel();
-        admincarpetas ac = new admincarpetas("./carpetas.dbvd");
-        ac.cargarArchivo();
-        adminarchivos av = new adminarchivos("./archivos.dbvd");
-        av.cargarArchivo();
-        for (Archivos a : av.getalistaarchivos()) {
+        adminunidad au = new adminunidad("./Unidad.dbvd");
+        au.cargarArchivo();
+        for (Object a : au.getUnidad()) {
             model.addElement(a);
         }
-        for (Carpetas c : ac.getListacarpetas()) {
-            model.addElement(c);
-        }
+
         jl_carpetas.setModel(model);
     }//GEN-LAST:event_Mi_unidadActionPerformed
 
@@ -573,6 +687,12 @@ public class Dv_7 extends javax.swing.JFrame {
             if (evt.isMetaDown()) {
                 if (pb_hilo1.getString().equals("Mi unidad")) {
                     menu_unidad.show(evt.getComponent(),
+                            evt.getX(), evt.getY());
+                } else if (pb_hilo1.getString().equals("Papelera")) {
+                    menu_papelera.show(evt.getComponent(),
+                            evt.getX(), evt.getY());
+                } else if (pb_hilo1.getString().equals("Favoritos")) {
+                    menu_fav.show(evt.getComponent(),
                             evt.getX(), evt.getY());
                 }
 
@@ -584,15 +704,138 @@ public class Dv_7 extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultListModel modelo
                 = (DefaultListModel) jl_carpetas.getModel();
+        adminfav af = new adminfav("./favoritos.dbvd");
+        af.cargarArchivo();
         Object o = modelo.getElementAt(jl_carpetas.getSelectedIndex());
         if (jl_carpetas.getSelectedIndex() >= 0) {
+            af.getFavoritos().add(o);
+            af.escribirArchivo();
             modelo.remove(jl_carpetas.getSelectedIndex());
-            if (pb_hilo1.getString().equals("Favoritos")) {
-                modelo.addElement(o);
-            }
+
         }
         jl_carpetas.setModel(modelo);
     }//GEN-LAST:event_FavActionPerformed
+
+    private void elimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimActionPerformed
+        // TODO add your handling code here:
+        adminunidad au = new adminunidad("./Unidad.dbvd");
+        au.cargarArchivo();
+        DefaultListModel modelo
+                = (DefaultListModel) jl_carpetas.getModel();
+        adminpapelera ap = new adminpapelera("./papelera.dbvd");
+        ap.cargarArchivo();
+        Object o = modelo.getElementAt(jl_carpetas.getSelectedIndex());
+        if (jl_carpetas.getSelectedIndex() >= 0) {
+            au.getUnidad().remove(jl_carpetas.getSelectedIndex());
+            au.escribirArchivo();
+            ap.getPapelera().add(o);
+            ap.escribirArchivo();
+            modelo.remove(jl_carpetas.getSelectedIndex());
+
+        }
+        jl_carpetas.setModel(modelo);
+    }//GEN-LAST:event_elimActionPerformed
+
+    private void PapeleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PapeleraActionPerformed
+        // TODO add your handling code here:
+        pb_hilo1.setString("Papelera");
+        adminpapelera ap = new adminpapelera("./papelera.dbvd");
+        ap.cargarArchivo();
+        DefaultListModel model = new DefaultListModel();
+        for (Object f : ap.getPapelera()) {
+            model.addElement(f);
+        }
+        jl_carpetas.setModel(model);
+    }//GEN-LAST:event_PapeleraActionPerformed
+
+    private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
+        // TODO add your handling code here:
+        try {
+            adminunidad au = new adminunidad("./Unidad.dbvd");
+            au.cargarArchivo();
+            DefaultListModel modelo
+                    = (DefaultListModel) jl_carpetas.getModel();
+            adminpapelera ap = new adminpapelera("./papelera.dbvd");
+            ap.cargarArchivo();
+            if (jl_carpetas.getSelectedIndex() >= 0) {
+                au.getUnidad().add(modelo.getElementAt(jl_carpetas.getSelectedIndex()));
+                au.escribirArchivo();
+                ap.getPapelera().remove(jl_carpetas.getSelectedIndex());
+                ap.escribirArchivo();
+                modelo.remove(jl_carpetas.getSelectedIndex());
+
+            }
+            JOptionPane.showMessageDialog(null, "Se restauro con exito en su unidad");
+            jl_carpetas.setModel(modelo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_restaurarActionPerformed
+
+    private void elim_defActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_defActionPerformed
+        // TODO add your handling code here:
+        try {
+            DefaultListModel modelo
+                    = (DefaultListModel) jl_carpetas.getModel();
+            adminpapelera ap = new adminpapelera("./papelera.dbvd");
+            ap.cargarArchivo();
+            if (jl_carpetas.getSelectedIndex() >= 0) {
+                ap.getPapelera().remove(jl_carpetas.getSelectedIndex());
+                ap.escribirArchivo();
+                modelo.remove(jl_carpetas.getSelectedIndex());
+
+            }
+            JOptionPane.showMessageDialog(null, "Se destruyo con exito");
+            jl_carpetas.setModel(modelo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_elim_defActionPerformed
+
+    private void Elim_favActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Elim_favActionPerformed
+        // TODO add your handling code here:
+        adminfav af = new adminfav("./favoritos.dbvd");
+        af.cargarArchivo();
+        DefaultListModel modelo
+                = (DefaultListModel) jl_carpetas.getModel();
+        adminpapelera ap = new adminpapelera("./papelera.dbvd");
+        ap.cargarArchivo();
+        Object o = modelo.getElementAt(jl_carpetas.getSelectedIndex());
+        if (jl_carpetas.getSelectedIndex() >= 0) {
+            af.getFavoritos().remove(jl_carpetas.getSelectedIndex());
+            af.escribirArchivo();
+            ap.getPapelera().add(o);
+            ap.escribirArchivo();
+            modelo.remove(jl_carpetas.getSelectedIndex());
+
+        }
+        jl_carpetas.setModel(modelo);
+    }//GEN-LAST:event_Elim_favActionPerformed
+
+    private void DescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescargarActionPerformed
+        // TODO add your handling code here:
+        DefaultListModel modelo
+                = (DefaultListModel) jl_carpetas.getModel();
+        adminunidad au = new adminunidad("./Unidad.dbvd");
+            au.cargarArchivo();
+        if (jl_carpetas.getSelectedIndex() >= 0) {
+            if (modelo.getElementAt(jl_carpetas.getSelectedIndex()) instanceof Carpetas) {
+                int acum=0;
+                int tiempo;
+                for (Archivos o :((Carpetas)au.getUnidad().get(jl_carpetas.getSelectedIndex())).getArchivos() ) {
+                    acum+=o.getTamaño();
+                }
+                System.out.println(acum);
+                tiempo=acum / 10;
+                hilo_descargar hd = new hilo_descargar(pb_descarga,10, jt_descarga,(Carpetas)au.getUnidad().get(jl_carpetas.getSelectedIndex()));
+                Thread proceso1 = new Thread(hd);
+                proceso1.start();
+            }else{
+            JOptionPane.showMessageDialog(null, "No es una carpeta");
+            }
+        }
+
+    }//GEN-LAST:event_DescargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -631,6 +874,8 @@ public class Dv_7 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Agregar;
+    private javax.swing.JMenuItem Descargar;
+    private javax.swing.JMenuItem Elim_fav;
     private javax.swing.JMenuItem Fav;
     private javax.swing.JMenuItem Favoritos;
     private javax.swing.JMenuItem Mi_unidad;
@@ -641,7 +886,9 @@ public class Dv_7 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_carpetas;
     private javax.swing.JComboBox<String> cb_extension;
     private javax.swing.JFrame cp_a_cp;
+    private javax.swing.JFrame descarga;
     private javax.swing.JMenuItem elim;
+    private javax.swing.JMenuItem elim_def;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -663,9 +910,15 @@ public class Dv_7 extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> jl_carpetas;
+    private javax.swing.JTable jt_descarga;
+    private javax.swing.JPopupMenu menu_fav;
+    private javax.swing.JPopupMenu menu_papelera;
     private javax.swing.JPopupMenu menu_unidad;
+    private javax.swing.JProgressBar pb_descarga;
     private javax.swing.JProgressBar pb_hilo1;
+    private javax.swing.JMenuItem restaurar;
     private javax.swing.JSpinner sp_tamaño;
     private javax.swing.JTextField tf_nomarchivo;
     private javax.swing.JTextField tf_nomcarpeta;

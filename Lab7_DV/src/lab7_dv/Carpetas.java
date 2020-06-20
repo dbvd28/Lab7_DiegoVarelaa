@@ -5,19 +5,20 @@
  */
 package lab7_dv;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author diego
  */
-public class Carpetas {
+public class Carpetas implements Serializable {
 
     private String nombre;
     private String link;
     private ArrayList<Carpetas> carpetas = new ArrayList();
     private ArrayList<Archivos> archivos = new ArrayList();
-    private static final long SerialVersionUID = 777L;
+    private static final long SerialVersionUID = 666L;
 
     public Carpetas(String nombre, String link) {
         this.nombre = nombre;
